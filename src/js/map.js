@@ -265,10 +265,11 @@ function setCurrentMarker(locID, relocate){
     var currentMarker = getCurrentMarker(locID);
     console.log("relocate? : " + relocate);
     if (relocate){
+        map.setZoom(16);
         moveMap(currentMarker.position);
         setTimeout( function(){
         currentMarker.setAnimation(google.maps.Animation.BOUNCE);
-            setTimeout(function(){currentMarker.setAnimation(null); }, 750);
+            setTimeout(function(){currentMarker.setAnimation(null); map.setZoom(18)}, 750);
         }, 1500);
     } else{
         currentMarker.setAnimation(google.maps.Animation.BOUNCE);
