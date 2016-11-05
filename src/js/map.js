@@ -147,10 +147,8 @@ var mapMarkers = [];
 
 /** adds all markers to map */
 function addAllMarkers(){
-	console.log('adding markers');
 	for (var i = 0, len = mapLocations.length; i < len; i++){
 		var loc = mapLocations[i];
-		console.dir(loc);
 		var marker = new google.maps.Marker({
 			position: loc.position,
 			map: map,
@@ -166,8 +164,6 @@ function addAllMarkers(){
 /** attaches click behavior to markers */
 function attachClickBehaviour(marker){
 	marker.addListener('click', function(event){
-		console.log(event);
-		console.log(marker.id + ' clicked');
 		var currLoc = mapModel.setLocationByID(marker.id);
 	}, false);
 }
@@ -176,7 +172,6 @@ function attachClickBehaviour(marker){
  * initializes map, adds click listener and applies knockout bindings
  */
 function initMap(){
-	console.log('initMap');
 
 	//var center = {lat: 40.688987, lng: -73.971061};
 
@@ -277,7 +272,6 @@ function getCurrentMarker(locID){
  */
 function setCurrentMarker(locID, fromMenu){
 	var currentMarker = getCurrentMarker(locID);
-	console.log('relocate? : ' + fromMenu);
 	var locationZoom = function(){
 		currentMarker.setAnimation(null);
 		if (map.getZoom() != ZOOM_IN_DISTANCE){
@@ -291,7 +285,6 @@ function setCurrentMarker(locID, fromMenu){
 
 	// if source is menu and zoomed in
 	if (fromMenu){
-		console.log('from menu');
 		// zoom out if needed
 		map.setZoom(NORMAL_ZOOM_DISTANCE);
 		// move to new position
@@ -304,14 +297,11 @@ function setCurrentMarker(locID, fromMenu){
 			setTimeout(locationZoom, 750);
 		}, 1500);
 	} else{
-		console.log('not from menu');
 		if (map.getZoom() == ZOOM_IN_DISTANCE){
-			console.log('zoomed in');
 			currentMarker.setAnimation(google.maps.Animation.BOUNCE);
 			setTimeout(locationZoom, 750);
 		}
 		else{
-			console.log('zoomed out');
 			moveMap(currentMarker.position);
 			//bounce icon then zoom in
 			setTimeout( function(){

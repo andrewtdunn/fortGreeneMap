@@ -104,8 +104,6 @@ var MapModel = function(){
 		var location = clickedLoc.label();
 		var pageID = clickedLoc.pageID();
 		var wikiUrl = 'https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&pageids='+ pageID +'&callback=?';
-		//console.log(pageID);
-		//console.log(wikiUrl);
 
 
 		$.ajax({
@@ -114,8 +112,6 @@ var MapModel = function(){
 
 		}).done( function(data){
 			var pages = data.query.pages;
-			//console.log('pageID:  ' + pageID);
-			//console.log(pages);
 
 			var extract = pages[pageID].extract;
 			if (self.countWords(extract) > self.EXTRACT_WORDS_LENGTH){
@@ -126,7 +122,6 @@ var MapModel = function(){
 
 
 		}).fail(function(qHXR, textStatus){
-			//console.log('wiki image fail');
 			self.errorHandler('wikipedia');
 
 		});
@@ -140,12 +135,10 @@ var MapModel = function(){
 		}).done( function(data){
 			var pages = data.query.pages;
 			for (var page in pages){
-				//console.log(pages[page].thumbnail);
 				self.currentLoc().pageThumb(pages[page].thumbnail.source);
 			}
 
 		}).fail(function(jqHXR, textStatus){
-			//console.log('wiki image fail');
 			self.errorHandler('wikipedia image');
 		});
 
@@ -195,7 +188,6 @@ var MapModel = function(){
 			dataType: 'jsonp'
 		})
 		.done(function(data){
-			console.dir(data);
 			self.currentLoc().imageUrl(data.image_url);
 			self.currentLoc().rating(starRatings[Math.floor(data.rating)]);
 			self.currentLoc().snippet(data.snippet_text);
@@ -226,8 +218,6 @@ var MapModel = function(){
 			return;
 		}
 		relocate = (typeof relocateMap === 'undefined') ? false : true;
-		console.log('relocate? ' + relocateMap);
-		console.dir(clickedLoc);
 		$('#aside__map').hide();
 		self.currentLoc(clickedLoc);
 		setCurrentMarker(clickedLoc.id(), relocateMap);
@@ -296,7 +286,3 @@ var MapModel = function(){
 };
 
 var mapModel = new MapModel();
-
-
-
-
