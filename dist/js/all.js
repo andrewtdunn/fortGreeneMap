@@ -44,6 +44,9 @@ var center = { lat: 40.688885, lng: -73.977042 };
 var ZOOM_IN_DISTANCE = 24;
 var NORMAL_ZOOM_DISTANCE = 16;
 
+/**
+ * Data object of map locations
+ */
 var mapLocations = [{
 	id: 1,
 	position: { lat: 40.689752, lng: -73.973224 },
@@ -166,6 +169,7 @@ var mapLocations = [{
 
 var mapMarkers = [];
 
+/** adds all markers to map */
 function addAllMarkers() {
 	console.log('adding markers');
 	for (var i = 0, len = mapLocations.length; i < len; i++) {
@@ -183,6 +187,7 @@ function addAllMarkers() {
 	};
 }
 
+/** attaches click behavior to markers */
 function attachClickBehaviour(marker) {
 	marker.addListener('click', function () {
 		console.log(marker.id + ' clicked');
@@ -190,6 +195,9 @@ function attachClickBehaviour(marker) {
 	});
 }
 
+/**
+ * initializes map, adds click listener and applies knockout bindings
+ */
 function initMap() {
 	console.log('initMap');
 
@@ -211,20 +219,21 @@ function initMap() {
 	});
 
 	ko.applyBindings(mapModel);
-
-	map.addListener('click', function () {
-		console.log('map click');
-		$('#aside__map').fadeOut();
-		document.querySelector('#nav__map').classList.remove('open');
-	});
 }
 
+/**
+ * sets all map markers to visible
+ */
 function showAllMarkers() {
 	centerMap();
 	for (var i = 0, len = mapMarkers.length; i < len; i++) {
 		mapMarkers[i].setVisible(true);
 	}
 }
+
+/**
+ * 	moves map to lat, lng with easing animator
+ */
 
 function moveMap(loc) {
 
@@ -236,6 +245,9 @@ function moveMap(loc) {
 	}, { lat: loc.lat(), lng: loc.lng() });
 }
 
+/**
+ * centers map, hides aside and zoons in
+ */
 function centerMap() {
 	var point = map.getCenter();
 
@@ -247,7 +259,9 @@ function centerMap() {
 	map.setZoom(NORMAL_ZOOM_DISTANCE);
 }
 
-// iterate through array,
+/**
+ * filters marker visibility by location type
+ */
 function filterMarkers(locationType) {
 	centerMap();
 	for (var i = 0, len = mapMarkers.length; i < len; i++) {
@@ -259,6 +273,9 @@ function filterMarkers(locationType) {
 	}
 }
 
+/**
+ * gets marker by id
+ */
 function getCurrentMarker(locID) {
 	for (var i = 0, len = mapMarkers.length; i < len; i++) {
 		if (mapMarkers[i].id == locID) {
@@ -267,6 +284,9 @@ function getCurrentMarker(locID) {
 	}
 }
 
+/**
+ * moves to current marker if relocate and adjusts zoom
+ */
 function setCurrentMarker(locID, relocate) {
 	var currentMarker = getCurrentMarker(locID);
 	console.log('relocate? : ' + relocate);
@@ -300,6 +320,9 @@ function setCurrentMarker(locID, relocate) {
 		setTimeout(locationZoom, 750);
 	}
 }
+/**
+ * represents a Location
+ */
 var Location = function (data) {
 	this.icon = data.icon;
 	this.position = ko.observable(data.position);
@@ -386,6 +409,15 @@ var MapModel = function () {
 			}
 		}
 		return out;
+	};
+
+	/**
+  * handles map click behavior - fades aside and closes nave on mobile
+  */
+	this.onMapClick = function () {
+		console.log('map clicked');
+		$('#aside__map').fadeOut();
+		document.querySelector('#nav__map').classList.remove('nav__map--open');
 	};
 
 	/** counts words in string */
