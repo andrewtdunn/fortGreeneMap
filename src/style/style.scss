@@ -225,6 +225,7 @@ body {
                 font-weight: bold;
                 color: black;
                 text-decoration: none;
+                cursor: pointer;
                 &:hover {
                     text-decoration: underline;
                 }
@@ -302,6 +303,7 @@ body {
             font-weight: bold;
             magin-top: 20px;
             text-decoration: none;
+            cursor: pointer;
             &:after{
                 content: " reviews"
             }
