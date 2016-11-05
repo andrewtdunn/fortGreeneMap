@@ -290,7 +290,7 @@ function setCurrentMarker(locID, fromMenu){
 		setTimeout( function(){
 			currentMarker.setAnimation(google.maps.Animation.BOUNCE);
 			setTimeout(locationZoom, 700);
-		},  1000);
+		},  1500);
 	} else{
 		if (map.getZoom() == ZOOM_IN_DISTANCE){
 			currentMarker.setAnimation(google.maps.Animation.BOUNCE);
@@ -302,7 +302,7 @@ function setCurrentMarker(locID, fromMenu){
 			setTimeout( function(){
 				currentMarker.setAnimation(google.maps.Animation.BOUNCE);
 				setTimeout(locationZoom, 700);
-			}, 1000);
+			}, 1500);
 
 		}
 
