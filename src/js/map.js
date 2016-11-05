@@ -165,9 +165,10 @@ function addAllMarkers(){
 
 /** attaches click behavior to markers */
 function attachClickBehaviour(marker){
-	marker.addListener('click', function(){
+	marker.addListener('click', function(e){
 		console.log(marker.id + ' clicked');
 		var currLoc = mapModel.setLocationByID(marker.id);
+		e.stopPropagation();
 	});
 }
 
