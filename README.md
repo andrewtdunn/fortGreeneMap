@@ -5,6 +5,9 @@
 I made a few enhancements. Custom markers are used. When a menu item is selected, the map moves center the selected image on the map.
 I used the panTo function [described here on stack overload](http://stackoverflow.com/questions/9335150/slow-down-google-panto-function/31203045)
 
+Restaurant reviews are generated from the yelp api
+Recreation location and school information is from the wikipedia api
+
 ##Dependencies for Development
 
 - install node.js and npm
@@ -12,9 +15,14 @@ I used the panTo function [described here on stack overload](http://stackoverflo
 [how to install npm on a mac](http://blog.teamtreehouse.com/install-node-js-npm-mac).
 [how to install npm on a pc](http://blog.teamtreehouse.com/install-node-js-npm-windows).
 
-- install devDependencies. cd to main directory (which has the gulpfile). Install each of the following packages (gulp, gulp-sass, gulp-watch, autoprefixer, browser-sync, gulp-eslint, gulp-jasmine-phantom, gulp-concat, gulp-uglify, gulp-babel, gulp-imagemin, imagemin-pngquant, gulp-gh-pages) with the following npm command:
+- to install all local packages:
 ```bash
-$> npm install --save-dev package_name
+
+
+
+$> npm i
+
+
 ```
 - run gulp
 ```
