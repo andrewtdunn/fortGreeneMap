@@ -109,7 +109,7 @@ var mapLocations = [
 		locationType: 'rec',
 		pageID: 215190
 	},
-
+	/*
 	{
 		id: 11,
 		position: {lat:40.689272, lng:-73.969326},
@@ -119,7 +119,7 @@ var mapLocations = [
 		locationType: 'food',
 		businessId: 'maison-may-dekalb-brooklyn-2'
 	},
-
+	*/
 	{
 		id: 12,
 		position: {lat:40.690460, lng:-73.967966},
