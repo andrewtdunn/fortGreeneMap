@@ -1,0 +1,33 @@
+{
+  "name": "fort_greene_map",
+  "version": "1.0.0",
+  "description": "interactive google map",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andrewtdunn/fortGreeneMap.git"
+  },
+  "author": "andrew dunn",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andrewtdunn/fortGreeneMap/issues"
+  },
+  "homepage": "https://github.com/andrewtdunn/fortGreeneMap#readme",
+  "devDependencies": {
+    "autoprefixer": "^6.5.1",
+    "browser-sync": "^2.17.5",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-eslint": "^3.0.1",
+    "gulp-gh-pages": "^0.5.4",
+    "gulp-imagemin": "^3.1.1",
+    "gulp-jasmine-phantom": "^3.0.0",
+    "gulp-sass": "^2.3.2",
+    "gulp-uglify": "^2.0.0",
+    "gulp-watch": "^4.3.10",
+    "imagemin-pngquant": "^5.0.0"
+  }
+}

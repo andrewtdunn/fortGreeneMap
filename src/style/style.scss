@@ -12,7 +12,8 @@ $lightGray: rgba(175,175,175, 0.9);
 $offWhite: rgba(255,255,255, 0.9);
 $offBlack: rgba(0,0,0, 0.7);
 
-html, body {
+html,
+body {
     height: 100%;
     margin: 0;
     padding: 0;
@@ -20,7 +21,7 @@ html, body {
 }
 
 
-#google_map{
+#google-map{
     height: 100%;
 }
 
@@ -28,20 +29,23 @@ html, body {
     position: relative;
     height:100%;
 }
-#expandDetailButton, #collapseDetailButton, #menuButton{
+#btn__detail--closed,
+#btn__detail--open,
+#btn__menu{
 
     padding: 10px;
     display: none;
 
 }
 
-#expandDetailButton, #collapseDetailButton{
+#btn__detail--closed,
+#btn__detail--open{
     color: orange;
     font-size: 1.7em;
     position: absolute;
     top: -2px;
 }
-#menuButton{
+#btn__menu{
     background-color: $offWhite;
     border: 2px solid gray;
     font-size: 1.2em;
@@ -53,16 +57,20 @@ html, body {
 
 }
 
-#over_map{
+.div--clear{
+    clear: both;
+}
+
+#nav__map{
     position: absolute;
-    top: 30px;
+    top: 10px;
     left: 10px;
     z-index: 101;
 
 
 
-
-    li{
+    li,
+    #nav__select-filters{
         text-transform: uppercase;
         font-family:EurostileLT-BoldExtendedTwo;
         color: black;
@@ -73,7 +81,7 @@ html, body {
         width: 200px;
         font-size: 20px;
         border: 2px solid gray;
-        padding: 5px 10px;
+        padding: 10px 10px;
         cursor: pointer;
         list-style: none;
         font-size: 0.9em;
@@ -110,7 +118,9 @@ html, body {
 
         }
 
-        &.rec, &.school, &.food{
+        &.rec,
+        &.school,
+        &.food{
             &:before{
                 content: "■ ";
                 font-family:"Arial";
@@ -123,27 +133,18 @@ html, body {
 
     }
 
-    #restaurantFilter{
-        //border: 2px solid $deepPurple !important;
-        background-color: lighten(purple, 70%);
-        color: purple;
+    #nav__select-filters {
+        -webkit-appearance: none;
+        outline: none;
+        border-radius: 0;
+        color: $gold;
+        width: 100%;
     }
 
-    #schoolFilter{
-        //border: 2px solid $basicBlue !important;
-        background-color: lighten($basicBlue, 40%);
-        color: $basicBlue;
-    }
-
-    #recreationFilter{
-       // border: 2px solid green !important;
-        background-color: lighten(green, 65%);
-        color: green;
-    }
 
 }
 
-#over_map_detail{
+#aside__map{
     position: absolute;
     top: 30px;
     right: 20px;
@@ -153,9 +154,10 @@ html, body {
 
 
 
-    #inner_detail{
+    #aside__detail{
 
-        #yelp_info, #wiki_info{
+        #section__yelp,
+        #section__wiki{
             display: none;
         }
 
@@ -173,6 +175,7 @@ html, body {
         img{
             display:none;
             padding: 2px;
+            margin-left: 5px;
 
         }
 
@@ -183,13 +186,14 @@ html, body {
             }
         }
 
-        #location_image{
+        #location-image{
             float: right
         }
 
         &.food{
 
-            #yelp_info{
+            padding-bottom:20px;
+            #section__yelp{
                 display: block;
             }
             border: 4px solid $deepPurple;
@@ -197,15 +201,17 @@ html, body {
             img{
                 display: block;
 
-                &#snippet_image{
+                #snippet-image{
                     float:right;
                 }
             }
          }
 
-        &.rec, &.school{
-            #wiki_info{
-                display:block
+        &.rec,
+        &.school{
+            #section__wiki{
+                display:block;
+                padding-bottom: 10px;
             }
             font-size: 14px;
             img{
@@ -213,8 +219,8 @@ html, body {
                 float: left;
                 margin-right: 5px
             }
-            #wikiLink{
-                display: block;
+            #link__wiki{
+                display: inline;
                 text-align: right;
                 font-weight: bold;
                 color: black;
@@ -234,7 +240,8 @@ html, body {
         }
 
 
-        h2, #stars {
+        h2,
+        #stars {
             text-align: right;
             color: $offBlack;
             font-family:EurostileLT-BoldExtendedTwo;
@@ -265,7 +272,7 @@ html, body {
             content: "\00a0";  /* Prevent margin collapse */
         }
 
-       #review_snippet{
+       #review-snippet{
             color: rgba(0,0,0,.6);
             font-size: 12px;
             font-style: italic;
@@ -287,7 +294,7 @@ html, body {
        }
 
 
-       #numReviews{
+       #num-reviews{
             display: block;
             text-align: right;
             color: rgba(0,0,0, 0.8);
@@ -304,7 +311,7 @@ html, body {
             }
        }
 
-       #contact_info{
+       #contact-info{
             color: rgba(0,0,0, 0.8);
             font-size: 12px;
             text-align: right;
@@ -313,12 +320,21 @@ html, body {
 
     }
 
+    .attribution{
+        position: absolute;
+        bottom: 3px;
+        left: 3px;
+        font-style: italic;
+        font-size: 0.7em;
+        color: $lightGray;
+    }
+
 
 }
 
 @media screen and (max-width: 400px) {
 
-    #over_map{
+    #nav__map{
         font-size: 0.8em;
 
     }
@@ -326,11 +342,12 @@ html, body {
 }
 
 @media screen and (max-width: 549px) {
-    #menuButton, #expandDetailButton{
+    #btn__menu,
+    #btn__detail--closed{
         display: block !important;
     }
 
-    #over_map{
+    #nav__map{
         z-index: 10;
         position: absolute;
         /* This trasform moves the drawer off canvas. */
@@ -339,41 +356,14 @@ html, body {
         /* Optionally, we animate the drawer. */
         transition: transform 0.3s ease;
 
-        &.open {
+        &.nav__map--open {
             -webkit-transform: translate(0, 0);
             transform: translate(0, 0);
         }
 
-        #restaurantFilter,#schoolFilter,#recreationFilter, #reset{
-            display: inline-block;
-            float: left;
-            width: 28px;
-            height: 50px;
-            text-indent: 100%;
-            white-space: nowrap;
-            overflow: hidden;
-            margin-right: 5px;
-        }
-
-        #restaurantFilter{
-            background-color: rgba(255,0,255,0.25);
-        }
-
-        #schoolFilter{
-            background-color: $basicBlue;
-        }
-
-        #recreationFilter{
-            background-color: rgba(0,255,0,0.5);
-        }
-
-
-
-
-
     }
 
-    #over_map_detail{
+    #aside__map{
         position: fixed;
         top: auto;
         right: auto;
@@ -383,7 +373,7 @@ html, body {
         min-height: 50px;
     //max-height:100px;
 
-        #inner_detail{
+        #aside__detail{
 
             -webkit-transition:width 300ms ease-in-out, height 300ms ease-in-out;
             -moz-transition:width 300ms ease-in-out, height 300ms ease-in-out;
@@ -395,13 +385,13 @@ html, body {
 
             &.food{
 
-                #yelp_info{
+                #section__yelp{
 
-                    #location_image, #mini_review, hr, #contact_info{
+                    #location-image, #mini-review, hr, #contact-info{
                         display: none;
                         .expanded{
                             //display: block;
-                            #location_image, #mini_review, hr, #contact_info{
+                            #location-image, #mini-review, hr, #contact-info{
                                 display: block;
                             }
                         }
@@ -411,49 +401,54 @@ html, body {
 
             }
 
-            &.rec, &.school{
+            &.rec,
+            &.school{
                 padding-bottom: 20px;
-                #wiki_info{
+                #section__wiki{
 
                    display: none;
 
                 }
             }
 
-            &.expanded{
+            &.aside__detail--expanded{
 
-                #expandDetailButton{
+                #btn__detail--closed{
                     display: none !important;
                 }
 
-                #collapseDetailButton{
+                #btn__detail--open{
                     display: block !important;
                 }
 
                 &.food{
 
-                    #yelp_info{
+                    #section__yelp{
 
-                        #location_image, #mini_review, hr, #contact_info{
+                        #location-image, #mini-review, hr, #contact-info{
                             display:block;
                         }
 
                     }
                 }
 
-                &.rec, &.school{
+                &.rec,
+                &.school{
 
                     padding-bottom: 5px;
 
-                    #wiki_info{
+                    #section__wiki{
 
                        display: block;
 
                     }
+
                 }
 
             }
 
         }
+
     }
+
 }

@@ -5,66 +5,66 @@
     <title>Map</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="stylesheet" type="text/css" href="style/css/style.css">
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png">
 </head>
 <body>
-    <div id="wrapper">
+    <main id="wrapper">
 
-        <div id="google_map"></div>
-        <a id="menuButton">&#9776;</a>
-        <div id="over_map">
+        <section id="google-map"></section>
+        <a id="btn__menu" data-bind="click: toggleMenuOpen">&#9776;</a>
+        <nav id="nav__map">
             <ul data-bind="foreach:locList">
                 <li data-bind="css: locationType, text: menuLabel, click: $parent.setLoc"></li>
             </ul>
-            <ul id="filters" data-bind="with: locList">
-                <li id="restaurantFilter" data-bind="click: $parent.filterRestaurants">Restaurants</li>
-                <li id="schoolFilter" data-bind="click: $parent.filterSchools">Schools</li>
-                <li id="recreationFilter" data-bind="click: $parent.filterRecreation">Recreation</li>
-                <li id="reset" data-bind="click: $parent.reset">Show All</li>
-            </ul>
-        </div>
-        <div id="over_map_detail" data-bind="with: currentLoc">
-            <div id="inner_detail" data-bind="css: locationType">
-                <div id="expandDetailButton">&#8679; </div>
-                <div id="collapseDetailButton">&#8681; </div>
-                <h2 data-bind="text: label"></h2>
-                <div style="clear:both"></div>
-                <div id="yelp_info">
+            <select id="nav__select-filters" data-bind="options: filterTypes, optionsCaption: 'Filter By Type:', event: {change: filterLocations}"></select>
+        </nav>
+        <aside id="aside__map" data-bind="with: currentLoc">
+            <article id="aside__detail" data-bind="css: locationType, click: $parent.toggleDetailOpen">
+                <hgroup>
+                    <div id="btn__detail--closed">&#8679; </div>
+                    <div id="btn__detail--open">&#8681; </div>
+                    <h2 data-bind="text: label"></h2>
+                    <div class="clear--div"></div>
+                </hgroup>
+                <section id="section__yelp">
                     <span id="stars" data-bind="text: rating"></span>
-                    <div style="clear:both"></div>
-                    <img id="location_image"src="" alt="test" data-bind="attr: {src: image_url}">
-                    <div id="mini_review">
-                        <p id="review_snippet" data-bind="text: snippet"></p>
+                    <div class="div--clear"></div>
+                    <img id="location-image"src="" alt="test" data-bind="attr: {src: imageUrl}">
+                    <div id="mini-review">
+                        <p id="review-snippet" data-bind="text: snippet"></p>
                         <p id="reviewer" data-bind="text: reviewer"></p>
-                        <a id="numReviews" data-bind="text: numReviews, attr: {href: url, target:'_blank' }"></a>
+                        <a id="num-reviews" data-bind="text: numReviews, click: $parent.showYelpPage"}"></a>
                     </div>
-                    <div style="clear:both"></div>
+                    <div class="div--clear"></div>
                     <hr>
                     <!-- <img id="snippet_image" src="" alt="test" data-bind="attr: {src: snippet_image_url}"> -->
-                    <div id="contact_info">
-                        <span data-bind="text: display_phone"></span> | <span data-bind="text: address"></span><span id="cross_streets" data-bind="text: cross_streets"></span>
+                    <div id="contact-info">
+                        <span data-bind="text: displayPhone"></span> | <span data-bind="text: address"></span><span id="cross_streets" data-bind="text: crossStreets"></span>
                     </div>
-                </div>
-                <div id="wiki_info">
+                    <p class="attribution">Powered by Yelp API</p>
+                </section>
+                <section id="section__wiki">
                     <hr>
-                    <img src="page_image" src="" alt="pageimage" data-bind="attr: {src: page_thumb}">
-                    <p data-bind="text: extract"></p>
-                    <a id="wikiLink" data-bind="text: 'more', attr: {href: wiki_link, target:'_blank' }"></a>
-                </div>
-                <div style="clear:both"></div>
+                    <img src="" data-bind="attr: {src: pageThumb, alt: label}">
+                    <span data-bind="text: extract"></span>
+                    <a id="link__wiki" data-bind="text: 'more', click: $parent.showWikiPage"}"></a>
+                    <p class="attribution">Powered by Wikipedia API</p>
+                </section>
+                <div class="div--clear"></div>
 
-            </div>
-        </div>
-    </div>
+            </article>
+        </aside>
+    </main>
     <script src="lib/knockout-3.2.0.js"></script>
     <script src="js/all.js"></script>
     <script src="lib/hmac-sha1.js"></script>
     <script src="lib/enc-base64-min.js"></script>
     <script src="lib/url.min.js"></script>
     <script src="lib/oauth-signature.js"></script>
-    <script src="lib/jquery.min.js"></script>
+    <script src="lib/jquery-3.1.1.min.js"></script>
 
     <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZVRdsKOj4_nnBJkmX5bdkv2spRgJtV-8&libraries=visualization&callback=initMap"></script>
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZVRdsKOj4_nnBJkmX5bdkv2spRgJtV-8&libraries=visualization&callback=initMap" onerror="mapModel.errorHandler('google maps')"></script>
 
     </body>
 </html>
