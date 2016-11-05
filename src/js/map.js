@@ -237,7 +237,7 @@ function moveMap(loc){
 function centerMap(){
 	var point = map.getCenter();
 
-	$('#over-map-detail').hide();
+	$('#aside__detail').hide();
 	easingAnimator.easeProp({
 		lat: point.lat(),
 		lng: point.lng()
