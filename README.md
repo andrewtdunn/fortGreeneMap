@@ -2,7 +2,7 @@
 
 [Deployed Project Here](http://andrewtdunn.com/_fortgreenemap/)
 
- I made a few enhancements. Custom markers are used. When a menu item is selected, the map moves center the selected image on the map.
+ I made a few enhancements. Custom markers are used. When a menu location is selected, the map moves to center the selected location on the map.
 
 
 I used the panTo function [described here on stack overload](http://stackoverflow.com/questions/9335150/slow-down-google-panto-function/31203045)
