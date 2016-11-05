@@ -11,9 +11,10 @@ I used the panTo function [described here on stack overload](http://stackoverflo
 ##Dependencies for Development
 
 - install node.js and npm
-[install node](https://nodejs.org/en/).
-[how to install npm on a mac](http://blog.teamtreehouse.com/install-node-js-npm-mac).
-[how to install npm on a pc](http://blog.teamtreehouse.com/install-node-js-npm-windows).
+
+<p>[install node](https://nodejs.org/en/).</p>
+<p>[how to install npm on a mac](http://blog.teamtreehouse.com/install-node-js-npm-mac).</p>
+<p>[how to install npm on a pc](http://blog.teamtreehouse.com/install-node-js-npm-windows).</p>
 
 - to install all local packages:
 ```bash
