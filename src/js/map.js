@@ -158,7 +158,7 @@ function addAllMarkers(){
 		});
 		 attachClickBehaviour(marker);
 		 mapMarkers.push(marker);
-	};
+	}
 }
 
 /** attaches click behavior to markers */
@@ -246,13 +246,8 @@ function centerMap(){
 function filterMarkers(locationType){
 	centerMap();
 	for (var i=0, len = mapMarkers.length; i < len;  i++){
-		if (mapMarkers[i].locationType !== locationType){
-			mapMarkers[i].setVisible(false);
-		}
-		else
-		{
-			mapMarkers[i].setVisible(true);
-		}
+		var marker = mapMarkers[i];
+		marker.setVisible(marker.locationType === locationType);
 	}
 }
 
@@ -294,20 +289,20 @@ function setCurrentMarker(locID, fromMenu){
 		//bounce icon then zoom in
 		setTimeout( function(){
 			currentMarker.setAnimation(google.maps.Animation.BOUNCE);
-			setTimeout(locationZoom, 750);
-		}, 1500);
+			setTimeout(locationZoom, 700);
+		},  1000);
 	} else{
 		if (map.getZoom() == ZOOM_IN_DISTANCE){
 			currentMarker.setAnimation(google.maps.Animation.BOUNCE);
-			setTimeout(locationZoom, 750);
+			setTimeout(locationZoom, 700);
 		}
 		else{
 			moveMap(currentMarker.position);
 			//bounce icon then zoom in
 			setTimeout( function(){
 				currentMarker.setAnimation(google.maps.Animation.BOUNCE);
-				setTimeout(locationZoom, 750);
-			}, 750);
+				setTimeout(locationZoom, 700);
+			}, 1000);
 
 		}
 

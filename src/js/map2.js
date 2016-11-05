@@ -121,7 +121,7 @@ var MapModel = function(){
 			self.currentLoc().wikiLink('https://en.wikipedia.org/?curid=' + pageID);
 
 
-		}).fail(function(qHXR, textStatus){
+		}).fail(function(){
 			self.errorHandler('wikipedia');
 
 		});
@@ -138,7 +138,7 @@ var MapModel = function(){
 				self.currentLoc().pageThumb(pages[page].thumbnail.source);
 			}
 
-		}).fail(function(jqHXR, textStatus){
+		}).fail(function(){
 			self.errorHandler('wikipedia image');
 		});
 
@@ -201,7 +201,7 @@ var MapModel = function(){
 			self.currentLoc().numReviews(data.review_count);
 			self.currentLoc().url(data.url);
 			$('#aside__map').fadeIn();
-		}).fail(function(jqHXR, textStatus){
+		}).fail(function(){
 			self.errorHandler('yelp');
 		});
 
