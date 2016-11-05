@@ -199,7 +199,7 @@ function initMap(){
 
 	map.addListener('click', function(){
 		$('#aside__map').fadeOut();
-		$('#nav__map').classList.removeClass('nav__map--open');
+		$('#nav__map').removeClass('nav__map--open');
 	});
 
 }
