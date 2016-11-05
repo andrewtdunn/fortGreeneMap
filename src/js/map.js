@@ -165,11 +165,11 @@ function addAllMarkers(){
 
 /** attaches click behavior to markers */
 function attachClickBehaviour(marker){
-	marker.addListener('click', function(e){
+	marker.addListener('click', function(event){
+		console.log(event);
 		console.log(marker.id + ' clicked');
 		var currLoc = mapModel.setLocationByID(marker.id);
-		e.stopPropagation();
-	});
+	}, false);
 }
 
 /**
@@ -196,6 +196,11 @@ function initMap(){
 
 
 	ko.applyBindings(mapModel);
+
+	map.addListener('click', function(){
+		$('#aside__map').fadeOut();
+		$('#nav__map').classList.removeClass('nav__map--open');
+	});
 
 }
 

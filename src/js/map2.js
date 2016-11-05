@@ -93,15 +93,6 @@ var MapModel = function(){
 		return out;
 	};
 
-	/**
-	 * handles map click behavior - fades aside and closes nave on mobile
-	 */
-	this.onMapClick = function(){
-		console.log('map clicked');
-		$('#aside__map').fadeOut();
-		document.querySelector('#nav__map').classList.remove('nav__map--open');
-	};
-
 	/** counts words in string */
 	this.countWords = function(str) {
 		return str.split(/\s+/).length;

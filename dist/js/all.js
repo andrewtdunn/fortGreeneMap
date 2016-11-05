@@ -189,11 +189,11 @@ function addAllMarkers() {
 
 /** attaches click behavior to markers */
 function attachClickBehaviour(marker) {
-	marker.addListener('click', function (e) {
+	marker.addListener('click', function (event) {
+		console.log(event);
 		console.log(marker.id + ' clicked');
 		var currLoc = mapModel.setLocationByID(marker.id);
-		e.stopPropagation();
-	});
+	}, false);
 }
 
 /**
@@ -220,6 +220,11 @@ function initMap() {
 	});
 
 	ko.applyBindings(mapModel);
+
+	map.addListener('click', function () {
+		$('#aside__map').fadeOut();
+		$('#nav__map').classList.removeClass('nav__map--open');
+	});
 }
 
 /**
@@ -410,15 +415,6 @@ var MapModel = function () {
 			}
 		}
 		return out;
-	};
-
-	/**
-  * handles map click behavior - fades aside and closes nave on mobile
-  */
-	this.onMapClick = function () {
-		console.log('map clicked');
-		$('#aside__map').fadeOut();
-		document.querySelector('#nav__map').classList.remove('nav__map--open');
 	};
 
 	/** counts words in string */
