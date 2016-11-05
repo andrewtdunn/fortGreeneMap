@@ -104,8 +104,8 @@ var MapModel = function(){
 		var location = clickedLoc.label();
 		var pageID = clickedLoc.pageID();
 		var wikiUrl = 'https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&pageids='+ pageID +'&callback=?';
-		console.log(pageID);
-		console.log(wikiUrl);
+		//console.log(pageID);
+		//console.log(wikiUrl);
 
 
 		$.ajax({
@@ -114,8 +114,8 @@ var MapModel = function(){
 
 		}).done( function(data){
 			var pages = data.query.pages;
-			console.log('pageID:  ' + pageID);
-			console.log(pages);
+			//console.log('pageID:  ' + pageID);
+			//console.log(pages);
 
 			var extract = pages[pageID].extract;
 			if (self.countWords(extract) > self.EXTRACT_WORDS_LENGTH){
@@ -126,7 +126,7 @@ var MapModel = function(){
 
 
 		}).fail(function(qHXR, textStatus){
-			console.log('wiki image fail');
+			//console.log('wiki image fail');
 			self.errorHandler('wikipedia');
 
 		});
@@ -145,7 +145,7 @@ var MapModel = function(){
 			}
 
 		}).fail(function(jqHXR, textStatus){
-			console.log('wiki image fail');
+			//console.log('wiki image fail');
 			self.errorHandler('wikipedia image');
 		});
 
@@ -221,6 +221,8 @@ var MapModel = function(){
 	this.setLoc = function(clickedLoc, relocateMap){
 		// don't open the same location twice
 		if ((typeof self.currentLoc() !== 'undefined') && self.currentLoc().id() === clickedLoc.id()){
+			// but if zoomed in and the detail panel is closed, open it
+			$('#aside__map').show();
 			return;
 		}
 		relocate = (typeof relocateMap === 'undefined') ? false : true;

@@ -1,7 +1,7 @@
 
 var map;
 var center = {lat:40.688885, lng:-73.977042};
-var ZOOM_IN_DISTANCE  = 24;
+var ZOOM_IN_DISTANCE  = 20; // 20 is max
 var NORMAL_ZOOM_DISTANCE = 16;
 
 /**
@@ -186,7 +186,7 @@ function initMap(){
 		mapTypeId: 'satellite',
 		mapTypeControlOptions: {
 			mapTypeIds: [google.maps.MapTypeId.ROADMAP,
-							google.maps.MapTypeId.HYBRID]
+				google.maps.MapTypeId.HYBRID]
 		}
 	});
 
@@ -275,9 +275,9 @@ function getCurrentMarker(locID){
 /**
  * moves to current marker if relocate and adjusts zoom
  */
-function setCurrentMarker(locID, relocate){
+function setCurrentMarker(locID, fromMenu){
 	var currentMarker = getCurrentMarker(locID);
-	console.log('relocate? : ' + relocate);
+	console.log('relocate? : ' + fromMenu);
 	var locationZoom = function(){
 		currentMarker.setAnimation(null);
 		if (map.getZoom() != ZOOM_IN_DISTANCE){
@@ -287,7 +287,11 @@ function setCurrentMarker(locID, relocate){
 
 		}
 	};
-	if (relocate){
+	// should be based on zoom level rather than click source
+
+	// if source is menu and zoomed in
+	if (fromMenu){
+		console.log('from menu');
 		// zoom out if needed
 		map.setZoom(NORMAL_ZOOM_DISTANCE);
 		// move to new position
@@ -300,13 +304,23 @@ function setCurrentMarker(locID, relocate){
 			setTimeout(locationZoom, 750);
 		}, 1500);
 	} else{
-		if (map.getZoom() != ZOOM_IN_DISTANCE){
-			// move to new position
-			moveMap(currentMarker.position);
+		console.log('not from menu');
+		if (map.getZoom() == ZOOM_IN_DISTANCE){
+			console.log('zoomed in');
+			currentMarker.setAnimation(google.maps.Animation.BOUNCE);
+			setTimeout(locationZoom, 750);
 		}
-		// bounce icon and zoom in
-		currentMarker.setAnimation(google.maps.Animation.BOUNCE);
-		setTimeout(locationZoom, 750);
+		else{
+			console.log('zoomed out');
+			moveMap(currentMarker.position);
+			//bounce icon then zoom in
+			setTimeout( function(){
+				currentMarker.setAnimation(google.maps.Animation.BOUNCE);
+				setTimeout(locationZoom, 750);
+			}, 750);
+
+		}
+
 	}
 
 

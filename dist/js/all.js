@@ -41,7 +41,7 @@ EasingAnimator.prototype.easeProp = function (obj, propDict) {
 
 var map;
 var center = { lat: 40.688885, lng: -73.977042 };
-var ZOOM_IN_DISTANCE = 24;
+var ZOOM_IN_DISTANCE = 20; // 20 is max
 var NORMAL_ZOOM_DISTANCE = 16;
 
 /**
@@ -293,9 +293,9 @@ function getCurrentMarker(locID) {
 /**
  * moves to current marker if relocate and adjusts zoom
  */
-function setCurrentMarker(locID, relocate) {
+function setCurrentMarker(locID, fromMenu) {
 	var currentMarker = getCurrentMarker(locID);
-	console.log('relocate? : ' + relocate);
+	console.log('relocate? : ' + fromMenu);
 	var locationZoom = function () {
 		currentMarker.setAnimation(null);
 		if (map.getZoom() != ZOOM_IN_DISTANCE) {
@@ -304,7 +304,11 @@ function setCurrentMarker(locID, relocate) {
 			});
 		}
 	};
-	if (relocate) {
+	// should be based on zoom level rather than click source
+
+	// if source is menu and zoomed in
+	if (fromMenu) {
+		console.log('from menu');
 		// zoom out if needed
 		map.setZoom(NORMAL_ZOOM_DISTANCE);
 		// move to new position
@@ -317,13 +321,20 @@ function setCurrentMarker(locID, relocate) {
 			setTimeout(locationZoom, 750);
 		}, 1500);
 	} else {
-		if (map.getZoom() != ZOOM_IN_DISTANCE) {
-			// move to new position
+		console.log('not from menu');
+		if (map.getZoom() == ZOOM_IN_DISTANCE) {
+			console.log('zoomed in');
+			currentMarker.setAnimation(google.maps.Animation.BOUNCE);
+			setTimeout(locationZoom, 750);
+		} else {
+			console.log('zoomed out');
 			moveMap(currentMarker.position);
+			//bounce icon then zoom in
+			setTimeout(function () {
+				currentMarker.setAnimation(google.maps.Animation.BOUNCE);
+				setTimeout(locationZoom, 750);
+			}, 750);
 		}
-		// bounce icon and zoom in
-		currentMarker.setAnimation(google.maps.Animation.BOUNCE);
-		setTimeout(locationZoom, 750);
 	}
 }
 /**
@@ -428,8 +439,8 @@ var MapModel = function () {
 		var location = clickedLoc.label();
 		var pageID = clickedLoc.pageID();
 		var wikiUrl = 'https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&pageids=' + pageID + '&callback=?';
-		console.log(pageID);
-		console.log(wikiUrl);
+		//console.log(pageID);
+		//console.log(wikiUrl);
 
 		$.ajax({
 			url: wikiUrl,
@@ -437,8 +448,8 @@ var MapModel = function () {
 
 		}).done(function (data) {
 			var pages = data.query.pages;
-			console.log('pageID:  ' + pageID);
-			console.log(pages);
+			//console.log('pageID:  ' + pageID);
+			//console.log(pages);
 
 			var extract = pages[pageID].extract;
 			if (self.countWords(extract) > self.EXTRACT_WORDS_LENGTH) {
@@ -447,7 +458,7 @@ var MapModel = function () {
 			self.currentLoc().extract(extract);
 			self.currentLoc().wikiLink('https://en.wikipedia.org/?curid=' + pageID);
 		}).fail(function (qHXR, textStatus) {
-			console.log('wiki image fail');
+			//console.log('wiki image fail');
 			self.errorHandler('wikipedia');
 		});
 
@@ -464,7 +475,7 @@ var MapModel = function () {
 				self.currentLoc().pageThumb(pages[page].thumbnail.source);
 			}
 		}).fail(function (jqHXR, textStatus) {
-			console.log('wiki image fail');
+			//console.log('wiki image fail');
 			self.errorHandler('wikipedia image');
 		});
 	};
@@ -526,6 +537,8 @@ var MapModel = function () {
 	this.setLoc = function (clickedLoc, relocateMap) {
 		// don't open the same location twice
 		if (typeof self.currentLoc() !== 'undefined' && self.currentLoc().id() === clickedLoc.id()) {
+			// but if zoomed in and the detail panel is closed, open it
+			$('#aside__map').show();
 			return;
 		}
 		relocate = typeof relocateMap === 'undefined' ? false : true;
