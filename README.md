@@ -1,4 +1,4 @@
-#Neighorhood Map Project
+## Neighorhood Map Project
 
 [Deployed Project Here](http://andrewtdunn.com/_fortgreenemap/)
 
@@ -14,7 +14,7 @@ Restaurant reviews are generated from the yelp api.
 Recreation location and school information is from the wikipedia api
 
 
-##Dependencies for Development
+## Dependencies for Development
 
 - install node.js and npm
 
