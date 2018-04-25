@@ -8,9 +8,9 @@ var Location = function(data){
 	this.label = ko.observable(data.label);
 	this.locationType = ko.observable(data.locationType);
 	this.id = ko.observable(data.id);
-	this.pageID = ko.observable(data.pageID);
-	if (data.businessId != undefined){
-		this.businessId = ko.observable(data.businessId);
+	this.wiki_id = ko.observable(data.wiki_id);
+	if (data.yelp_id != undefined){
+		this.yelp_id = ko.observable(data.yelp_id);
 	}
 	this.imageUrl = ko.observable();
 	this.rating = ko.observable();
@@ -102,8 +102,8 @@ var MapModel = function(){
 	this.getWikipediaInfo = function(clickedLoc){
 		//console.log(clickedLoc.label());
 		var location = clickedLoc.label();
-		var pageID = clickedLoc.pageID();
-		var wikiUrl = 'https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&pageids='+ pageID +'&callback=?';
+		var wiki_id = clickedLoc.wiki_id();
+		var wikiUrl = 'https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&pageids='+ wiki_id +'&callback=?';
 
 
 		$.ajax({
@@ -113,12 +113,12 @@ var MapModel = function(){
 		}).done( function(data){
 			var pages = data.query.pages;
 
-			var extract = pages[pageID].extract;
+			var extract = pages[wiki_id].extract;
 			if (self.countWords(extract) > self.EXTRACT_WORDS_LENGTH){
 				extract= extract.replace(/\s+/g,' ').split(/(?=\s)/gi).slice(0, self.EXTRACT_WORDS_LENGTH).join('') + ' .....';
 			}
 			self.currentLoc().extract(extract);
-			self.currentLoc().wikiLink('https://en.wikipedia.org/?curid=' + pageID);
+			self.currentLoc().wikiLink('https://en.wikipedia.org/?curid=' + wiki_id);
 
 
 		}).fail(function(){
@@ -155,7 +155,7 @@ var MapModel = function(){
 		//console.log('getYelpInfo');
 		var self = this;
 
-		var yelpUrl = 'https://api.yelp.com/v2/business/' + clickedLoc.businessId();
+		var yelpUrl = 'https://api.yelp.com/v2/business/' + clickedLoc.yelp_id();
 
 		var parameters = {
 			oauth_consumer_key: CONSUMER_KEY,
@@ -285,4 +285,19 @@ var MapModel = function(){
 
 };
 
-var mapModel = new MapModel();
+function getMapLocations(){
+	console.log('getMapLocations');
+	var self = this;
+	$.ajax({
+		// ajax settings
+		url: 'http://api.mapsterious.com/locations/JSON',
+		dataType: 'json'
+	}).done( function(data){
+		console.log(data.mapLocations);
+		self.mapLocations = data.mapLocations;
+		self.mapModel = new MapModel();
+		self.initMap();
+	}).fail(function(){
+		self.errorHandler('map locations');
+	});
+}
