@@ -57,6 +57,7 @@ function addAllMarkers() {
 		var marker = new google.maps.Marker({
 			position: loc.position,
 			map: map,
+			scaledSize: new google.maps.Size(50, 50),
 			icon: "https://s3-us-west-2.amazonaws.com/andrewdunn-pictures/thumbs/images/" + loc.icon,
 			locationType: loc.locationType,
 			id: loc.id
